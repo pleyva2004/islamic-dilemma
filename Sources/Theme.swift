@@ -1,21 +1,30 @@
 import SwiftUI
 import SafariServices
+import UIKit
 
 // MARK: - Palette
-// Neutral academic warmth: parchment ground, ink text, one calm slate accent.
-// The two horns / three debate roles get muted, equal-weight hues so neither
-// side reads as "winning" by color.
-extension Color {
-    static let parchment     = Color(red: 0.96, green: 0.94, blue: 0.89)
-    static let parchmentCard = Color(red: 0.99, green: 0.98, blue: 0.955)
-    static let ink           = Color(red: 0.17, green: 0.17, blue: 0.18)
-    static let inkSoft       = Color(red: 0.38, green: 0.37, blue: 0.36)
-    static let slate         = Color(red: 0.24, green: 0.36, blue: 0.46)
+// Neutral academic warmth, adaptive to light/dark. Light mode is a warm parchment/ink
+// scheme; dark mode is a warm dark-parchment scheme with lighter accents so they stay
+// legible as text on the dark ground. The horns / debate roles keep muted, equal-weight
+// hues so neither side reads as "winning" by color.
+private func adaptive(_ light: (Double, Double, Double), _ dark: (Double, Double, Double)) -> Color {
+    Color(uiColor: UIColor { trait in
+        let c = trait.userInterfaceStyle == .dark ? dark : light
+        return UIColor(red: c.0, green: c.1, blue: c.2, alpha: 1)
+    })
+}
 
-    static let argument      = Color(red: 0.27, green: 0.42, blue: 0.56) // cool blue
-    static let response      = Color(red: 0.34, green: 0.48, blue: 0.39) // sage green
-    static let counter       = Color(red: 0.45, green: 0.45, blue: 0.47) // neutral grey
-    static let hinge         = Color(red: 0.80, green: 0.52, blue: 0.25) // contested-hinge orange
+extension Color {
+    static let parchment     = adaptive((0.96, 0.94, 0.89), (0.13, 0.12, 0.11))
+    static let parchmentCard = adaptive((0.99, 0.98, 0.955), (0.19, 0.17, 0.15))
+    static let ink           = adaptive((0.17, 0.17, 0.18), (0.92, 0.90, 0.85))
+    static let inkSoft       = adaptive((0.38, 0.37, 0.36), (0.66, 0.63, 0.58))
+    static let slate         = adaptive((0.24, 0.36, 0.46), (0.56, 0.70, 0.82))
+
+    static let argument      = adaptive((0.27, 0.42, 0.56), (0.56, 0.71, 0.86)) // cool blue
+    static let response      = adaptive((0.34, 0.48, 0.39), (0.60, 0.76, 0.63)) // sage green
+    static let counter       = adaptive((0.45, 0.45, 0.47), (0.68, 0.68, 0.72)) // neutral grey
+    static let hinge         = adaptive((0.80, 0.52, 0.25), (0.90, 0.66, 0.40)) // contested-hinge amber
 }
 
 // MARK: - Reusable text styles
@@ -282,6 +291,38 @@ struct BalanceSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
         }
+    }
+}
+
+// MARK: - Go-home action (environment)
+// Lets drill-in detail screens (which show a system back button, not the explorer
+// top bar) jump straight to the Home landing.
+private struct GoHomeKey: EnvironmentKey { static let defaultValue: () -> Void = {} }
+extension EnvironmentValues {
+    var goHome: () -> Void {
+        get { self[GoHomeKey.self] }
+        set { self[GoHomeKey.self] = newValue }
+    }
+}
+
+// MARK: - Light/dark appearance toggle
+// Overrides the system appearance (stored in @AppStorage "appearance"). The icon
+// reflects the current effective scheme: tap the sun to go light, the moon to go dark.
+struct AppearanceToggle: View {
+    @AppStorage("appearance") private var appearance = "system"
+    @Environment(\.colorScheme) private var scheme
+    var body: some View {
+        Button {
+            appearance = (scheme == .dark) ? "light" : "dark"
+        } label: {
+            Image(systemName: scheme == .dark ? "sun.max.fill" : "moon.fill")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Color.slate)
+                .frame(width: 38, height: 38)
+                .background(Color.parchmentCard, in: Circle())
+                .overlay(Circle().stroke(Color.ink.opacity(0.08)))
+        }
+        .accessibilityLabel("Toggle light or dark mode")
     }
 }
 

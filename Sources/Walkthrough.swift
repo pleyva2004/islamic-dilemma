@@ -7,19 +7,16 @@ struct WalkthroughView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                TabView(selection: $step) {
-                    WelcomePage(onSkip: onFinish).tag(0)
-                    PremisesPage().tag(1)
-                    ForkPage().tag(2)
-                    ResponsesPage().tag(3)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .animation(.easeInOut, value: step)
-
-                bottomBar
+            TabView(selection: $step) {
+                WelcomePage(onSkip: onFinish).tag(0)
+                PremisesPage().tag(1)
+                ForkPage().tag(2)
+                ResponsesPage().tag(3)
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .animation(.easeInOut, value: step)
             .background(Color.parchment.ignoresSafeArea())
+            .safeAreaInset(edge: .bottom) { bottomBar }   // content scrolls UNDER the glass bar
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -46,16 +43,18 @@ struct WalkthroughView: View {
                 Spacer()
                 if step > 0 {
                     Button("Back") { withAnimation { step -= 1 } }
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.glass)
                 }
                 Button(step == total - 1 ? "Explore freely" : "Continue") {
                     if step == total - 1 { onFinish() } else { withAnimation { step += 1 } }
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.glassProminent)
+                .tint(.slate)
             }
         }
-        .padding(.horizontal, 20).padding(.vertical, 12)
-        .background(.ultraThinMaterial)
+        .padding(.horizontal, 20).padding(.vertical, 14)
+        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 26))
+        .padding(.horizontal, 12).padding(.bottom, 6)
     }
 }
 
@@ -66,6 +65,7 @@ private struct WelcomePage: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                HStack { Spacer(); AppearanceToggle() }
                 VStack(alignment: .leading, spacing: 8) {
                     Image(systemName: "book.closed")
                         .font(.system(size: 40)).foregroundStyle(Color.slate)

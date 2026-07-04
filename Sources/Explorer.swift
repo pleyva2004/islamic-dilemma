@@ -6,6 +6,7 @@ struct ExplorerView: View {
     var body: some View {
         if entered {
             TabsView(onHome: { entered = false })
+                .environment(\.goHome, { entered = false })
         } else {
             HomeLanding(onEnter: { entered = true })
         }
@@ -21,6 +22,7 @@ struct HomeLanding: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
+                HStack { Spacer(); AppearanceToggle() }
                 VStack(alignment: .leading, spacing: 8) {
                     Image(systemName: "book.closed").font(.system(size: 42)).foregroundStyle(Color.slate)
                     Text("The Islamic Dilemma").font(.serifTitle(34))
@@ -296,7 +298,7 @@ struct VersesTab: View {
     private func chip(_ label: String, _ on: Bool, _ color: Color, _ action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label).font(.footnote.weight(.medium))
-                .foregroundStyle(on ? .white : color)
+                .foregroundStyle(on ? Color.parchment : color)
                 .padding(.horizontal, 12).padding(.vertical, 6)
                 .background(on ? color : color.opacity(0.12), in: Capsule())
         }.buttonStyle(.plain)
@@ -314,6 +316,7 @@ struct VersesTab: View {
 
 struct VerseDetail: View {
     let verse: Verse
+    @Environment(\.goHome) private var goHome
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -359,6 +362,12 @@ struct VerseDetail: View {
         .background(Color.parchment.ignoresSafeArea())
         .navigationTitle(verse.ref)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button { goHome() } label: { Image(systemName: "house.fill") }
+                    .accessibilityLabel("Home")
+            }
+        }
     }
     private func isBible(_ s: String) -> Bool { !s.hasPrefix("Q") }
     private func defaultApologist(_ c: VerseCluster) -> String {
