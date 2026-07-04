@@ -64,7 +64,7 @@ Bible **of Muhammad's day**: was it already corrupt then, or still reliable then
 | Codex Vaticanus | ~325–350 CE | [Vatican Library (DigiVatLib)](https://digi.vatlib.it/view/MSS_Vat.gr.1209) |
 | Codex Sinaiticus | ~330–360 CE | [Codex Sinaiticus Project](https://codexsinaiticus.org/en/) |
 | Syriac Peshitta | pre-Islamic | [Dukhrana Peshitta reader](https://dukhrana.com/peshitta/) |
-| ~5,800 Greek NT manuscripts | collectively | [CSNTM digitized library](https://www.csntm.org) |
+| ~5,800 Greek NT manuscripts | collectively | [NTVMR (INTF, Münster)](https://ntvmr.uni-muenster.de/manuscript-workspace) |
 
 In the app these are tappable in the **Inference** node of the Fork, not inside Horn B: they are the
 shared, contested evidence the "corrupt then vs reliable then" fork turns on. Apologists use them to
@@ -275,7 +275,167 @@ lean, and fragment-routed SPAs (Tanzil, STEP Bible) for fragile deep links.
 > **staging area**; vetted material is promoted up into §2–§5 (and then `Sources/Content.swift`)
 > during human review.
 
-_No sources parsed yet — run the pipeline to populate this section._
+### Christian Vs Muslim: The Islamic Dilemma (HEATED DEBATE) (The Way with Brian Davila, 2026)
+
+Full ~3.2-hour debate between **Sam Shamoun** (Christian apologist, independent; self-described
+"OG" of the Islamic-dilemma argument) and **Dr Nasser** (Muslim da'i, independent), moderated by
+**Brian Davila** (host). Auto-captions had no speaker labels; principals reconstructed from turn
+markers and metadata (high confidence). Timestamps are approximate turn-starts; quotes are
+paraphrase-level (ASR frequently merged interrupted turns). Inclusion is not endorsement.
+
+**Scoping move (Shamoun, ~03:00, rhetorical strategy).** Shamoun distinguishes the "Islamic
+dilemma" (a claim about *Quranic text* alone) from a "commentary dilemma" (1,400 years of tafsir),
+and *concedes the tafsir record is a wash* — restricting his whole case to "show me the single verse
+a Christian can bring to a mosque." Frames the argument's scope, not a P#/Horn/R# point.
+
+**The dependency thesis (Shamoun, ~02:08 · Horn B).** Core claim: the Quran depends on the Bible,
+not the reverse. He argues Q5:27-32 (Cain/Abel) names no one, so a reader must consult the Bible to
+know Adam's two sons — the Quran presupposes prior scriptural knowledge. *Nasser answers* (~05:41 ·
+R2) that God simply declares in the Quran what He did in history; a pagan audience needs no external
+cross-check, since the claim rests on God's authority, not the manuscript.
+
+**Q17:101 "ask the children of Israel" (Shamoun, ~17:31 · Horn A).** If the Quran directs people to
+the Jews to verify its claims, yet their scripture is (elsewhere) called corrupt, the Quran relies on
+a source it also impugns. *Nasser answers* (~21:00 · R1) that Islam never claims their book is 100%
+inauthentic — genuine revelation reached Moses and Jesus and partly passed on (citing Q2:79, Q4:46 as
+the Quran's own tampering charges), so one may appeal to the sound parts.
+
+**[new angle] The circularity charge (Shamoun, ~21:38 · epistemological objection).** Shamoun's
+sharpest methodological point: Nasser uses the Quran to decide which parts of the Bible are sound,
+then cites those "sound" parts to support the Quran, and calls the contradicting parts corrupt. This
+attacks the R1 two-kinds-of-corruption move as *circular reasoning* rather than on exegesis — an
+epistemological axis not captured by the P#/Horn/R# vocabulary.
+
+**"Torah" = all People-of-the-Book scripture? (Shamoun, ~23:00 · P1).** Quoting Ibn Kathir (citing
+Bukhari, re Isaiah 42), Shamoun argues the Salaf used "Torah" for the whole Jewish/Christian corpus,
+so affirming "the Torah" endorses the wider Bible in their possession. *Nasser answers* (~25:15 · R4)
+that "Torah" most properly means what was revealed to Moses; broad colloquial use is a linguistic
+point (analogy: "father" has literal/divine/figurative senses) and doesn't fix the meaning as today's
+full Bible.
+
+**Q5:45 quotes their Torah verbatim (Shamoun, ~32:05 · Horn B).** Q5:45's "life for a life / eye for
+an eye" matches Exodus 21, so — he argues — the Quran certifies the specific textual content of their
+Torah was intact and identical to today's text ("the Quran brought the time machine to me").
+
+**Q5:43-48 and *bayna yadayhi* (Shamoun, ~33:30 · P2).** Q5:46 says Jesus confirmed "that which came
+before him" (*bayna yadayhi*) in the Torah, and Q5:43-44 says the prophets judged by it — one
+continuous, uncorrupt Torah from Jesus through Muhammad's contemporaries. *Nasser answers* two ways:
+(a, ~35:13 · R4) *bayna yadayhi* ("between the hands") is ambiguous like English "before"
+(spatial/temporal), so it can't be pinned to the identical extant text; (b, ~39:17 · R3) Q5:43 is a
+*rhetorical* question exposing Jewish hypocrisy (they dodged a ruling they had), not an assertion
+that they possess the complete authentic Torah.
+
+**Q3:81 covenant of the prophets (Shamoun, ~50:17 · P1).** God's covenant that the coming messenger
+will "confirm what is with you"; since the prophets had uncorrupt scriptures, a messenger who calls
+those scriptures corrupt disqualifies himself. *Nasser answers* (~59:03 · R1) via Q7:157: later
+communities can still find Muhammad ("the unlettered prophet") described in their scriptures even if
+other parts suffered corruption — the Quran has a *dual function* of confirming the sound and
+correcting distortions. *Shamoun replies* (~64:17 · touches R5) that inserting "partially" / "only
+the agreeing parts" is itself the tahrif-by-the-tongue that Q3:78 condemns.
+
+**What "corruption" means — variants (Nasser, ~66:11 · R5).** Nasser argues textual variants ≠
+corruption: variant OT readings existed in Jesus's day and he still confirmed it as God's word;
+likewise Muslims don't call the Quran corrupt despite scribal variants. *Shamoun turns it back*
+(~67:10 · R5): if variants prove the Bible corrupt, the Quran (with its own variant Arabic readings)
+is equally corrupt — "if variant readings mean the book is corrupt, retire your Quran."
+
+**[new angle] Reflexive tu-quoque on abrogation/variants (Shamoun, recurring · rhetorical axis).**
+A consistent meta-strategy: whatever standard is used to condemn the Bible is turned on the Quran
+("if abrogation = corruption, your Quran abrogates itself"; "if variants = corruption, retire your
+Quran"). A distinct rhetorical axis, not a single verse.
+
+**Preservation and the scholars (Shamoun, ~76:36 · P3).** "If the Bible scholars are right, the
+Quran is a lie" — the Quran's preservation logic (cf. Q6:115) says nothing is lost, so if modern
+critics are right that the Bible was corrupted, Muhammad was wrong; therefore he appeals only to the
+Quran, not to Bible scholars.
+
+**Locating Muhammad in the Gospel backfires (Shamoun, ~85:02 · Horn B).** He argues that the moment
+one tells a Christian "Muhammad is in your Bible (e.g. Luke)" per Q7:157, one invokes the very Gospel
+that teaches Jesus's crucifixion, burial, and resurrection — contradicting the Quran. *Nasser*
+locates Muhammad via Luke 9:26 and Daniel 7. *Nasser answers* (~87:13 · touches Q4:157) that the
+Gospel's own crucifixion narrative is internally contradictory: Jesus prayed to be saved, Psalm 91
+(quoted by the devil, Matthew 4) promises he won't be harmed and will be "raised up," and John says
+his prayers are always heard — so the Bible both affirms and denies the death, which the Quran
+resolves by affirming Jesus was taken up. *Shamoun replies* (~89:37) that Nasser misreads Psalm 91
+(cannot recite v.13 or the passage's context).
+
+**Q5:47 "judge by revelation" (Nasser, ~97:42 · R3).** Nasser stresses Q5:47 says "revelation," not
+"the Gospel"; Matthew/Mark/Luke/John are historical reports (cf. Luke 1:1-4), not revelation — so the
+verse is an *impossible challenge* whose solution in Q5:48 is the Quran. *Shamoun answers* (~100:26 ·
+P2) that Q5:48's "to each We prescribed a law (*shir'ah*)" assigns Christians a real law to judge by;
+if they had none, God would ascribe a law they cannot follow.
+
+***Muhaymin* is adjudication, not textual correction (Shamoun, ~94:06 · R6).** Getting Nasser to
+read the lexical definition repeatedly, Shamoun notes *muhaymin* (Q5:48) means the Quran is
+controller/criterion over prior scripture *especially where they differ* — i.e. abrogation of prior
+legislation (e.g. no Sabbath), saying nothing about textual corruption.
+
+**Q5:41 *yuharrifun* / *mawadi* (Nasser, ~117:02 · R1).** Nasser argues Q5:41's "they distort the
+placement of the words (*mawadi*)" supports written-text tampering, while conceding 1,400 years of
+commentary splits between tahrif al-nass and tahrif al-ma'ani. *Shamoun answers* (~119:40 · R1) that
+harrafa here is distortion "by their tongues" (cf. Q3:78), not the written text — and the very fact
+that Arabic-literate Muslim scholars disagree proves the Quran does not clearly teach textual
+corruption.
+
+**[new angle] The inspiration model — Q21:105 (Shamoun, ~132:00 · touches R4).** Shamoun argues the
+Quran's own doctrine of inspiration matches the Christian (non-dictation) view: Q21:105 says "We wrote
+in the Zabur" a line David actually authored (Psalm 37:29), so God takes authorial responsibility for
+words a human prophet wrote — dismantling Nasser's premise that the Gospels can't be revelation
+because they read as reports (Luke 1:1-4); he adds 1 Timothy 5:18 quoting Luke 10:7 as "scripture." A
+meta-argument about the definition of *wahy*/inspiration, orthogonal to R4.
+
+**[new angle] The "original language" turnabout (Shamoun, ~138:03 · symmetry argument).** Shamoun
+neutralizes the Muslim claim that the Gospels are unreliable for lacking Jesus's Aramaic *ipsissima
+verba* (only Greek survives): the Quran quotes Jesus/Moses/Abraham *only* in 7th-century Qurayshi
+Arabic, which they never spoke. Nasser concedes God can faithfully render a prophet's words into
+another language — granting the Christian principle that translation/reporting need not destroy
+authenticity. A tu-quoque/symmetry argument outside the P#/Horn/R# framework.
+
+**[new angle] The "victorious true followers" prong — Q3:55 / Q61:14 (Shamoun, ~144:24 · Horn B,
+second prong).** Shamoun argues the Quran's promise that Jesus's followers are "uppermost till the
+day of resurrection" commits Islam to what those historically-victorious followers taught — and Acts
+(esp. Peter, pre-Paul: Acts 10:36-43; Acts 15) has them preaching crucifixion, resurrection,
+ascension, and Christ's Lordship. He frames this as a *second prong* shifting the dilemma from "what
+the Quran says about the Bible" to "what the Quran says about the triumph of the church." *Nasser
+answers* (~145:53) that the "true followers" are the monotheists, and Q61:14's victory "over their
+enemy" means the disciples/James prevailing over *Paul* (the alleged corrupter) — citing Acts 21
+(James checking Paul), Paul's self-description as *anomos* (1 Cor 9:20-21), and Matthew 7:23 (Jesus
+rejecting the *anomos*). *Shamoun replies* (~152:09) that Paul was "under the law of Christ" (1 Cor
+9:21) and Acts 15/21 show no Paul-vs-James split (Timothy circumcised, Titus not). *Nasser's
+Pauline-corruption identification is a specific corruption-mechanism claim beyond the generic
+R-family.*
+
+***Musaddiq*'s object — the Q2 "confirming" verses (Nasser, ~160:24 · R2).** Nasser argues Q2:41,
+Q2:89, Q2:91, Q2:101 do not affirm the entirety of the People of the Book's scripture; "confirming
+what (*ma*) is with you" means: don't be first to reject the parts of new revelation that agree with
+what you hold (analogy: telling a Christian "don't reject charity, it's in your own book" doesn't
+confirm their whole book), and Q2:79 shows some "wrote a book with their own hands." *Shamoun answers*
+(~165:00 · P1) that Q2:41-44 identifies the object as "the scripture" they recite (Q2:44), so
+*musaddiq* means their actual scripture, and Nasser only escapes by importing unstated qualifiers.
+
+**Q2:79 "write the book with their own hands" (Nasser, ~170:28 · R5).** Nasser cites Q2:79 (context
+Q2:75-79, with Q2:83-85's covenant) as the Quran's own charge of textual tampering — so Islam already
+holds some scripture was corrupted, and the *musaddiq* verses confirm the covenant, not the whole
+extant text. *Shamoun answers* (~173:53 · R5) that Q2:79 (with Q3:113-114, Q3:199) names only "a
+party of them" at a specific time, contrasted with a righteous party — so it cannot prove wholesale
+corruption of the Bible held by unrelated communities worldwide. He adds (~180:59 · R1) that Q4:44-46
+describes *oral* misinterpretation of what they heard, not written-text corruption — by Nasser's own
+logic (twisting the heard Quran didn't corrupt the Quran's text), the tahrif verses don't prove the
+Bible's text was corrupted.
+
+**Q3:50 / Q5:110 dual function and "conscious edits" (Nasser, ~187:04 · R6).** Nasser argues Jesus
+(Q3:50) and Muhammad share a dual function ("confirming... and to make lawful some of what was
+forbidden"); the passive "was forbidden" allows tradition *or* textual distortion, and the Quran's
+"white shining, not leprous" hand of Moses (vs biblical "leprous," Exodus 4:6) is a conscious edit
+implying tampering. *Shamoun answers* (~191:11 · Horn A) that "conscious edits" just means the Quran
+*differs* from the Torah (Christians read these as errors, not corrections); since every prior prophet
+— including Jesus (John 5:39-47, "Moses wrote about me," with no mention of corruption) — confirmed
+the Torah with the "leprous hand" story, Nasser's theory requires God to let every prophet confirm a
+mistake until Muhammad. The audio ends abruptly at John 5:47 with no formal verdict.
+
+*Non-substantive: the transcript includes heavy meta-debate over conduct (interrupting, "preaching,"
+appeals to the audience), a mid-debate apology by Shamoun for an insult, and shared anti-Zionist
+asides — recorded here only to explain the "HEATED DEBATE" framing.*
 
 ---
 

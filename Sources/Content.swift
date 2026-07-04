@@ -253,8 +253,8 @@ enum AppContent {
                    source: "Dukhrana Peshitta reader",
                    url: "https://dukhrana.com/peshitta/"),
         Manuscript(name: "Greek NT manuscripts (~5,800)", date: "collectively",
-                   source: "CSNTM digitized library",
-                   url: "https://www.csntm.org"),
+                   source: "NTVMR (INTF, Münster)",
+                   url: "https://ntvmr.uni-muenster.de/manuscript-workspace"),
     ]
 }
 
