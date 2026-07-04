@@ -80,6 +80,7 @@ struct TermChip: View {
         Button { show.toggle() } label: {
             Text(term)
                 .font(.system(.subheadline, design: .serif).italic())
+                .lineLimit(1)
                 .foregroundStyle(Color.slate)
                 .padding(.horizontal, 10).padding(.vertical, 4)
                 .background(Color.slate.opacity(0.08), in: Capsule())
@@ -89,11 +90,41 @@ struct TermChip: View {
         .popover(isPresented: $show) {
             VStack(alignment: .leading, spacing: 8) {
                 Text(entry?.term ?? term).font(.serifTitle(20))
-                Text(entry?.definition ?? "—").font(.callout).foregroundStyle(Color.inkSoft)
+                Text(entry?.definition ?? "No definition available.").font(.callout).foregroundStyle(Color.inkSoft)
                     .fixedSize(horizontal: false, vertical: true)   // wrap & grow, don't truncate
             }
             .padding(20).frame(width: 280)
             .presentationCompactAdaptation(.popover)
+        }
+    }
+}
+
+// MARK: - Wrapping flow layout
+// Places subviews left to right, wrapping to a new row when the next would overflow —
+// so variable-width chips form neat rows instead of a squeezed HStack that wraps text.
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let maxWidth = proposal.width ?? .infinity
+        var x: CGFloat = 0, y: CGFloat = 0, rowHeight: CGFloat = 0
+        for view in subviews {
+            let size = view.sizeThatFits(.unspecified)
+            if x > 0, x + size.width > maxWidth { x = 0; y += rowHeight + spacing; rowHeight = 0 }
+            x += size.width + spacing
+            rowHeight = max(rowHeight, size.height)
+        }
+        return CGSize(width: maxWidth == .infinity ? max(0, x - spacing) : maxWidth, height: y + rowHeight)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        var x = bounds.minX, y = bounds.minY, rowHeight: CGFloat = 0
+        for view in subviews {
+            let size = view.sizeThatFits(.unspecified)
+            if x > bounds.minX, x + size.width > bounds.maxX { x = bounds.minX; y += rowHeight + spacing; rowHeight = 0 }
+            view.place(at: CGPoint(x: x, y: y), anchor: .topLeading, proposal: ProposedViewSize(size))
+            x += size.width + spacing
+            rowHeight = max(rowHeight, size.height)
         }
     }
 }
@@ -210,10 +241,10 @@ struct BalanceSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("This app walks through a **Christian apologetics** argument (popularized by David Wood / Acts 17 Apologetics) and the **Muslim scholarly responses** to it — on equal footing. It is a reference explainer, not a verdict.")
+                    Text("This app walks through a **Christian apologetics** argument (popularized by David Wood / Acts 17 Apologetics) and the **Muslim scholarly responses** to it, on equal footing. It is a reference explainer, not a verdict.")
                     Divider()
                     Label("Every argument is paired with its strongest response, and every response with its counter-reply. Both traditions are steelmanned in their own voice.", systemImage: "scalemass")
-                    Label("Claims are owned by who makes them — “Apologists argue…”, “Responders answer…”, “Historians note…” — never asserted by the app.", systemImage: "quote.opening")
+                    Label("Claims are owned by who makes them (“Apologists argue”, “Responders answer”, “Historians note”), never asserted by the app.", systemImage: "quote.opening")
                     Label("Quran quotations are paraphrase-level (translations differ: Sahih International, Yusuf Ali, Pickthall) and use standard Hafs / Cairo (1924) verse numbering.", systemImage: "text.book.closed")
                     Label("Nothing here decides the question for you. The judgment is yours.", systemImage: "person.fill.questionmark")
                 }

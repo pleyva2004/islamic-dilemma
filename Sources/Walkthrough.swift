@@ -70,7 +70,7 @@ private struct WelcomePage: View {
                     Image(systemName: "book.closed")
                         .font(.system(size: 40)).foregroundStyle(Color.slate)
                     Text("The Islamic Dilemma").font(.serifTitle(34))
-                    Text("A step-by-step walkthrough of a well-known argument — and the responses to it.")
+                    Text("A step-by-step walkthrough of a well-known argument, and the responses to it.")
                         .font(.title3).foregroundStyle(Color.inkSoft)
                 }
                 Tag(text: "About 8 minutes", color: .slate)
@@ -84,7 +84,7 @@ private struct WelcomePage: View {
 
                 Card(accent: .hinge) {
                     Text("Ground rules").font(.serifTitle(20))
-                    bullet("This argument comes from debate and street apologetics — popularized by David Wood / Acts 17 Apologetics — not neutral scholarship. We pair it with the responses on equal footing.")
+                    bullet("This argument comes from debate and street apologetics, popularized by David Wood / Acts 17 Apologetics, not neutral scholarship. We pair it with the responses on equal footing.")
                     bullet("Both traditions hold these texts sacred; we quote with care.")
                     bullet("Quran quotations are paraphrase-level and use Hafs / Cairo (1924) verse numbering.")
                     bullet("Nothing here decides the question for you. The judgment is yours.")
@@ -125,7 +125,7 @@ private struct PremisesPage: View {
                     Text(AppContent.oneSentence)
                         .font(.system(.body, design: .serif))
                 }
-                HStack(spacing: 8) {
+                FlowLayout(spacing: 8) {
                     ForEach(["tahrif", "musaddiq", "Tawrat", "Injil", "Zabur"], id: \.self) { TermChip(term: $0) }
                 }
                 .padding(.vertical, 2)
@@ -141,7 +141,7 @@ private struct PremisesPage: View {
                         }
                         Text(p.body).font(.subheadline)
                         FlowRow(p.verses)
-                        Text("This is the argument's view — the responses come next.")
+                        Text("This is the argument's view. The responses come next.")
                             .font(.caption2).italic().foregroundStyle(Color.inkSoft)
                     }
                 }
@@ -161,13 +161,13 @@ private struct ForkPage: View {
                     .font(.subheadline).foregroundStyle(Color.inkSoft)
 
                 Card(accent: .counter) {
-                    Text("Horn A — Corrupt then").font(.serifTitle(18)).foregroundStyle(Color.counter)
-                    Text("Then the Quran praised as ‘guidance and light’ (Q5:44) books that were adulterated, and commanded people to judge by a corrupted text (Q5:47) — so it endorsed error.")
+                    Text("Horn A: Corrupt then").font(.serifTitle(18)).foregroundStyle(Color.counter)
+                    Text("Then the Quran praised as ‘guidance and light’ (Q5:44) books that were adulterated, and commanded people to judge by a corrupted text (Q5:47). So it endorsed error.")
                         .font(.subheadline)
                 }
                 Card(accent: .argument) {
-                    Text("Horn B — Reliable then").font(.serifTitle(18)).foregroundStyle(Color.argument)
-                    Text("Then that Bible is textually essentially today's Bible — the manuscript record predates Muhammad by centuries. But today's Bible teaches what Islam denies: that Jesus was crucified (contrast Q4:157), is divine, and is the Son of God.")
+                    Text("Horn B: Reliable then").font(.serifTitle(18)).foregroundStyle(Color.argument)
+                    Text("Then that Bible is textually essentially today's Bible; the manuscript record predates Muhammad by centuries. But today's Bible teaches what Islam denies: that Jesus was crucified (contrast Q4:157), is divine, and is the Son of God.")
                         .font(.subheadline)
                     Divider()
                     Text("Pre-Islamic manuscript evidence").font(.caption.weight(.semibold)).foregroundStyle(Color.inkSoft)
@@ -178,7 +178,7 @@ private struct ForkPage: View {
                 }
 
                 Card {
-                    Text("The close — a constructive dilemma").font(.serifTitle(18))
+                    Text("The close: a constructive dilemma").font(.serifTitle(18))
                     Text("Horn A means the Quran endorsed a corrupt book; Horn B means the endorsed book refutes the Quran's Jesus. Since (the argument claims) those are the only two options, either way it concludes the Quran is caught.")
                         .font(.subheadline)
                     Text("(A ∨ B), (A → problem₁), (B → problem₂) ⊢ problem₁ ∨ problem₂")
@@ -188,7 +188,7 @@ private struct ForkPage: View {
                 Card(accent: .hinge) {
                     Label("An honest note", systemImage: "hand.raised")
                         .font(.subheadline.weight(.semibold)).foregroundStyle(Color.hinge)
-                    Text("This is the argument as its proponents see it — often used as a debate trap. We are deliberately not treating it as settled. Whether corrupt-vs-reliable is really the only choice — and what ‘corrupt’ and ‘confirm’ even mean — is exactly where the responses push back, next, with equal room.")
+                    Text("This is the argument as its proponents see it, often used as a debate trap. We are deliberately not treating it as settled. Whether corrupt-vs-reliable is really the only choice, and what ‘corrupt’ and ‘confirm’ even mean, is exactly where the responses push back next, with equal room.")
                         .font(.subheadline)
                 }
             }
@@ -207,12 +207,12 @@ private struct ForkPage: View {
 // MARK: - Page 4
 private struct ResponsesPage: View {
     private let responses: [(String, String)] = [
-        ("Two kinds of corruption", "Tahrif al-nass = altering the written text; tahrif al-ma'ani = distorting meaning or interpretation while the words stand. The prominent classical readings (al-Tabari, al-Razi) leaned toward meaning — opening a third option the fork skips: authentic text, distorted handling. (Ibn Hazm is the famous textual-corruption exception, a minority for centuries.)"),
-        ("‘Confirm’ means the message, not the manuscript", "Musaddiq (Q3:3, Q5:48) affirms the divine origin and monotheistic core of the earlier revelation — not that every 7th-century copy was textually perfect."),
-        ("‘Judge by it’ can be contextual or ad hominem", "Q5:47 may address Christians by their own accepted standard, pointing to what remained authentic (cf. Q7:157, Q61:6) — not a timeless warranty on the whole canon."),
+        ("Two kinds of corruption", "Tahrif al-nass = altering the written text; tahrif al-ma'ani = distorting meaning or interpretation while the words stand. The prominent classical readings (al-Tabari, al-Razi) leaned toward meaning, opening a third option the fork skips: authentic text, distorted handling. (Ibn Hazm is the famous textual-corruption exception, a minority for centuries.)"),
+        ("‘Confirm’ means the message, not the manuscript", "Musaddiq (Q3:3, Q5:48) affirms the divine origin and monotheistic core of the earlier revelation, not that every 7th-century copy was textually perfect."),
+        ("‘Judge by it’ can be contextual or ad hominem", "Q5:47 may address Christians by their own accepted standard, pointing to what remained authentic (cf. Q7:157, Q61:6), not a timeless warranty on the whole canon."),
         ("The Injil is not the four Gospels", "The Quran's Injil is the revelation given to Jesus (Q5:46); the New Testament is four Gospels written about him plus letters."),
-        ("The Quran already alleges tampering", "Q2:75, Q2:79, Q3:78, Q4:46, Q5:13 accuse custodians of distortion — so affirming the origin while accusing the custodians is one coherent position."),
-        ("The Quran supersedes anyway", "Q5:48 calls it muhaymin (guardian / criterion) over prior scripture, and Q15:9 says the Quran itself is divinely protected — so Islam does not need the earlier text intact."),
+        ("The Quran already alleges tampering", "Q2:75, Q2:79, Q3:78, Q4:46, Q5:13 accuse custodians of distortion. So affirming the origin while accusing the custodians is one coherent position."),
+        ("The Quran supersedes anyway", "Q5:48 calls it muhaymin (guardian / criterion) over prior scripture, and Q15:9 says the Quran itself is divinely protected. So Islam does not need the earlier text intact."),
     ]
     var body: some View {
         ScrollView {
@@ -228,7 +228,7 @@ private struct ResponsesPage: View {
                     }
                 }
 
-                HStack(spacing: 8) {
+                FlowLayout(spacing: 8) {
                     ForEach(["tahrif al-nass", "tahrif al-ma'ani", "muhaymin", "naskh"], id: \.self) { TermChip(term: $0.contains("nass") ? "Tahrif al-nass" : $0.contains("ma'ani") ? "Tahrif al-ma'ani" : $0.capitalized) }
                 }
 
@@ -237,9 +237,9 @@ private struct ResponsesPage: View {
 
                 Card(accent: .slate) {
                     Text("Where it actually stands").font(.serifTitle(18))
-                    Text("Historians can settle one narrow fact: the manuscript record shows **no wholesale rewrite** of the Bible after the 7th century (not ‘identical in every detail’). That lands against the strongest ‘text-was-swapped’ version of tahrif. But the rest is underdetermined — a Muslim can consistently hold the text is old and unrewritten yet was distorted, or the true Injil lost, before the 7th century, which manuscripts can neither confirm nor deny. And the fork is exhaustive only for bare text-state.")
+                    Text("Historians can settle one narrow fact: the manuscript record shows **no wholesale rewrite** of the Bible after the 7th century (not ‘identical in every detail’). That lands against the strongest ‘text-was-swapped’ version of tahrif. But the rest is underdetermined. A Muslim can consistently hold the text is old and unrewritten yet was distorted, or the true Injil lost, before the 7th century, which manuscripts can neither confirm nor deny. And the fork is exhaustive only for bare text-state.")
                         .font(.subheadline)
-                    Text("A serious argument with serious answers — not a knockout for either side. Neither side is declared the winner here.")
+                    Text("A serious argument with serious answers, not a knockout for either side. Neither side is declared the winner here.")
                         .font(.subheadline.weight(.medium))
                     Text("You've walked the whole path. The Explorer is now unlocked.")
                         .font(.caption).italic().foregroundStyle(Color.inkSoft)

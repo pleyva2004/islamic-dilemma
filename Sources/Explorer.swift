@@ -12,7 +12,7 @@ struct ExplorerView: View {
     }
 }
 
-// MARK: - Home landing (no nav bar — like the walkthrough welcome)
+// MARK: - Home landing (no nav bar, like the walkthrough welcome)
 
 struct HomeLanding: View {
     let onEnter: () -> Void
@@ -24,7 +24,7 @@ struct HomeLanding: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Image(systemName: "book.closed").font(.system(size: 42)).foregroundStyle(Color.slate)
                     Text("The Islamic Dilemma").font(.serifTitle(34))
-                    Text("A balanced look at a well-known argument — and the responses to it.")
+                    Text("A balanced look at a well-known argument and the responses to it.")
                         .font(.title3).foregroundStyle(Color.inkSoft)
                 }
 
@@ -45,7 +45,7 @@ struct HomeLanding: View {
                     Text("Find your way around").font(.serifTitle(18))
                     navRow("arrow.triangle.branch", "Fork", "The argument as a tappable diagram.")
                     navRow("text.book.closed", "Verses", "Every Quran & Bible reference, both sides.")
-                    navRow("bubble.left.and.bubble.right", "Responses", "Argument → response → counter.")
+                    navRow("bubble.left.and.bubble.right", "Responses", "Argument, response, counter.")
                     navRow("ellipsis.circle", "More", "Glossary, a short quiz, sources.")
                     Text("From any section, tap the house button in the top-left to come back here.")
                         .font(.caption).foregroundStyle(Color.inkSoft).padding(.top, 4)
@@ -109,7 +109,7 @@ struct ForkTab: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    Text("A Christian apologetic argument (popularized by David Wood / Acts 17 Apologetics): three Quranic commitments are said to force an either/or about the 7th-century Bible where both options embarrass Islam. Muslim responders dispute the reading of every premise.")
+                    Text("A Christian apologetic argument popularized by David Wood (Acts 17 Apologetics): three Quranic commitments are said to force an either/or about the 7th-century Bible where both options embarrass Islam. Muslim responders dispute the reading of every premise.")
                         .font(.footnote).foregroundStyle(Color.inkSoft)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 8)
@@ -122,10 +122,10 @@ struct ForkTab: View {
                          contested: showContested ? "‘Confirm’ (musaddiq) may mean the message, not the manuscript." : nil)
                     connector
                     node("Premise 2 · Command", "7th-c. Jews & Christians told to judge by their own scriptures.", ["Q5:47", "Q5:68", "Q5:43"], .argument,
-                         contested: showContested ? "May be ad hominem — judge by your own book — not a warranty." : nil)
+                         contested: showContested ? "May be ad hominem (judge by your own book), not a warranty." : nil)
                     connector
                     node("Premise 3 · Preservation", "None can change God's words.", ["Q6:115", "Q18:27"], .argument,
-                         contested: showContested ? "‘God's words’ may mean His decree / the Quran, not the Bible." : nil)
+                         contested: showContested ? "‘God's words’ may mean His decree or the Quran, not the Bible." : nil)
                     connector
                     node("Inference", "Therefore the scriptures of ~610–632 CE were EITHER already corrupt OR still reliable.", [], .slate, contested: nil)
                     connector
@@ -139,7 +139,7 @@ struct ForkTab: View {
                     connector
                     node("Close", "Constructive dilemma: both horns are said to damage Islam, so either way the Quran is caught.", [], .slate, contested: nil)
 
-                    Text("This is the skeleton only — soundness is contested and lives in the Responses tab. The bare corrupt/not-corrupt fork is validly exhaustive; the false-dichotomy charge targets the loaded horns.")
+                    Text("This is the skeleton only. Soundness is contested and lives in the Responses tab. The bare corrupt/not-corrupt fork is validly exhaustive; the false-dichotomy charge targets the loaded horns.")
                         .font(.caption).foregroundStyle(Color.inkSoft)
                         .padding(.top, 16)
                 }
@@ -247,7 +247,7 @@ struct VersesTab: View {
                         NavigationLink { VerseDetail(verse: v) } label: { row(v) }
                     }
                 } footer: {
-                    Text("English shown is paraphrase-level (translations differ) — verify wording in your chosen translation. Hafs / Cairo (1924) numbering.")
+                    Text("English shown is paraphrase-level; verify wording in your chosen translation. Hafs / Cairo (1924) numbering.")
                 }
             }
             .listStyle(.insetGrouped)
@@ -300,11 +300,11 @@ struct VerseDetail: View {
                 ReadLink(ref: verse.ref)
 
                 Card(accent: .argument) {
-                    Label("Apologists cite this for…", systemImage: "arrow.up.forward").font(.subheadline.weight(.semibold)).foregroundStyle(Color.argument)
+                    Label("How apologists use it", systemImage: "arrow.up.forward").font(.subheadline.weight(.semibold)).foregroundStyle(Color.argument)
                     Text(verse.apologist ?? defaultApologist(verse.cluster)).font(.subheadline)
                 }
                 Card(accent: .response) {
-                    Label("Responders read it as…", systemImage: "arrow.uturn.left").font(.subheadline.weight(.semibold)).foregroundStyle(Color.response)
+                    Label("How responders read it", systemImage: "arrow.uturn.left").font(.subheadline.weight(.semibold)).foregroundStyle(Color.response)
                     Text(verse.responder ?? defaultResponder(verse.cluster)).font(.subheadline)
                 }
 
@@ -344,9 +344,9 @@ struct VerseDetail: View {
     }
     private func defaultResponder(_ c: VerseCluster) -> String {
         switch c {
-        case .affirmation: return "Read as confirming the original revelation and its divine origin — not certifying every extant manuscript."
+        case .affirmation: return "Read as confirming the original revelation and its divine origin, not certifying every extant manuscript."
         case .unchangeable: return "‘God's words’ most naturally means His decree or the Quran itself (cf. Q15:9), not a guarantee about Biblical copies."
-        case .tahrif: return "The Quran itself alleges the custodians distorted the scripture — affirming its origin while accusing its handlers is one coherent position."
+        case .tahrif: return "The Quran itself alleges the custodians distorted the scripture; affirming its origin while accusing its handlers is one coherent position."
         case .contested: return "Assumes the Quranic Injil and the canonical Gospels are the same text."
         }
     }
@@ -405,7 +405,7 @@ struct DeckView: View {
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))
 
-            Label("This is contested, not concluded — swipe through all three roles.", systemImage: "arrow.left.arrow.right")
+            Label("This is contested, not concluded. Swipe through all three roles.", systemImage: "arrow.left.arrow.right")
                 .font(.caption).foregroundStyle(Color.inkSoft)
                 .padding(.bottom, 12)
         }
@@ -467,7 +467,7 @@ struct QuizView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
-                Text("A light check — no grading, no winner declared.")
+                Text("A light check: no grading, no winner declared.")
                     .font(.subheadline).foregroundStyle(Color.inkSoft)
                 ForEach(Array(AppContent.quiz.enumerated()), id: \.element.id) { qi, item in
                     Card {
@@ -492,7 +492,7 @@ struct QuizView: View {
                     }
                 }
                 if score.answered == AppContent.quiz.count {
-                    Text("\(score.right) of \(AppContent.quiz.count) — nicely done. Remember: the argument itself is left for you to weigh.")
+                    Text("\(score.right) of \(AppContent.quiz.count), nicely done. Remember: the argument itself is left for you to weigh.")
                         .font(.subheadline.weight(.medium)).foregroundStyle(Color.slate)
                 }
             }
@@ -524,7 +524,7 @@ struct AboutView: View {
     var body: some View {
         List {
             Section("What this is") {
-                Text("A reference explainer for a contested apologetic argument — not a verdict. Every argument is paired with its strongest response; both traditions are steelmanned.")
+                Text("A reference explainer for a contested apologetic argument, not a verdict. Every argument is paired with its strongest response; both traditions are steelmanned.")
                     .font(.subheadline)
             }
             Section("Argument advanced by") {
@@ -537,7 +537,7 @@ struct AboutView: View {
                 Text("Quran refs use Hafs / Cairo (1924) numbering; English is paraphrase-level (check Sahih International, Yusuf Ali, Pickthall). Bible manuscript facts from Metzger/Ehrman, Tov, Parker; Quranic-milieu scholarship from Reynolds, Griffith, Neuwirth, Sinai.").font(.subheadline)
             }
             Section("Read the verses yourself") {
-                Text("Tap any reference to open it in full. The Quran opens on Quran.com (standard Uthmani/Hafs Arabic with your choice of translation); the Bible opens on BibleGateway (ecumenical NRSVUE plus 200+ translations and the original Greek/Hebrew). Both are mainstream, widely used, and impose no sect-specific rendering — you read the text and pick the translation.").font(.subheadline)
+                Text("Tap any reference to open it in full. The Quran opens on Quran.com (standard Uthmani/Hafs Arabic with your choice of translation); the Bible opens on BibleGateway (ecumenical NRSVUE plus 200+ translations and the original Greek/Hebrew). Both are mainstream and impose no sect-specific rendering: you read the text and pick the translation.").font(.subheadline)
             }
             Section("Known limits") {
                 Text("Manuscript dates are paleographic / radiocarbon estimates; P52's tight ~125 CE date is contested (Nongbri). ‘7th-c. Bible = today's Bible’ means no wholesale rewrite, not identity in every detail.").font(.subheadline)
