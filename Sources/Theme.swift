@@ -90,8 +90,9 @@ struct TermChip: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(entry?.term ?? term).font(.serifTitle(20))
                 Text(entry?.definition ?? "—").font(.callout).foregroundStyle(Color.inkSoft)
+                    .fixedSize(horizontal: false, vertical: true)   // wrap & grow, don't truncate
             }
-            .padding(20).frame(maxWidth: 320)
+            .padding(20).frame(width: 280)
             .presentationCompactAdaptation(.popover)
         }
     }
