@@ -83,6 +83,7 @@ struct Manuscript: Identifiable {
     let date: String
     let source: String   // the digital archive that hosts it
     let url: String
+    var fallback: String? = nil   // stable backup opened if the primary fails to load
 }
 
 // MARK: - Content
@@ -241,8 +242,9 @@ enum AppContent {
     // Inference node. Dates use en-dash ranges; en-dashes are intentional there.
     static let manuscripts: [Manuscript] = [
         Manuscript(name: "Great Isaiah Scroll (1QIsaᵃ)", date: "~150–100 BCE",
-                   source: "Digital Dead Sea Scrolls, Israel Museum",
-                   url: "https://dss.collections.imj.org.il/isaiah"),
+                   source: "Leon Levy DSS Digital Library (IAA)",
+                   url: "https://www.deadseascrolls.org.il/explore-the-archive",
+                   fallback: "https://www.deadseascrolls.org.il"),
         Manuscript(name: "Codex Vaticanus", date: "~325–350 CE",
                    source: "Vatican Library (DigiVatLib)",
                    url: "https://digi.vatlib.it/view/MSS_Vat.gr.1209"),

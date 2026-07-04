@@ -210,7 +210,7 @@ struct ManuscriptLink: View {
     let m: Manuscript
     var body: some View {
         if let url = URL(string: m.url) {
-            SafariLink(primary: url) {
+            SafariLink(primary: url, fallback: m.fallback.flatMap { URL(string: $0) }) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     VStack(alignment: .leading, spacing: 1) {
                         Text(m.name).font(.subheadline.weight(.semibold)).foregroundStyle(Color.slate)
