@@ -1,0 +1,167 @@
+import SwiftUI
+
+// MARK: - Palette
+// Neutral academic warmth: parchment ground, ink text, one calm slate accent.
+// The two horns / three debate roles get muted, equal-weight hues so neither
+// side reads as "winning" by color.
+extension Color {
+    static let parchment     = Color(red: 0.96, green: 0.94, blue: 0.89)
+    static let parchmentCard = Color(red: 0.99, green: 0.98, blue: 0.955)
+    static let ink           = Color(red: 0.17, green: 0.17, blue: 0.18)
+    static let inkSoft       = Color(red: 0.38, green: 0.37, blue: 0.36)
+    static let slate         = Color(red: 0.24, green: 0.36, blue: 0.46)
+
+    static let argument      = Color(red: 0.27, green: 0.42, blue: 0.56) // cool blue
+    static let response      = Color(red: 0.34, green: 0.48, blue: 0.39) // sage green
+    static let counter       = Color(red: 0.45, green: 0.45, blue: 0.47) // neutral grey
+    static let hinge         = Color(red: 0.80, green: 0.52, blue: 0.25) // contested-hinge orange
+}
+
+// MARK: - Reusable text styles
+extension Font {
+    static func serifTitle(_ size: CGFloat) -> Font { .system(size: size, weight: .semibold, design: .serif) }
+}
+
+// MARK: - Verse reference badge (monospace pill)
+struct VerseBadge: View {
+    let ref: String
+    var body: some View {
+        Text(ref)
+            .font(.system(.caption, design: .monospaced).weight(.medium))
+            .foregroundStyle(Color.slate)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .background(Color.slate.opacity(0.10), in: Capsule())
+    }
+}
+
+// MARK: - Role / category tag
+struct Tag: View {
+    let text: String
+    var color: Color = .inkSoft
+    var body: some View {
+        Text(text)
+            .font(.caption2.weight(.medium))
+            .foregroundStyle(color)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .background(color.opacity(0.12), in: Capsule())
+    }
+}
+
+// MARK: - Parchment card container
+struct Card<Content: View>: View {
+    var accent: Color? = nil
+    @ViewBuilder var content: Content
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) { content }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .background(Color.parchmentCard, in: RoundedRectangle(cornerRadius: 14))
+            .overlay(alignment: .leading) {
+                if let accent {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(accent)
+                        .frame(width: 4)
+                        .padding(.vertical, 6)
+                }
+            }
+            .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.ink.opacity(0.06)))
+    }
+}
+
+// MARK: - Tappable Arabic-term chip → glossary popover
+struct TermChip: View {
+    let term: String
+    @State private var show = false
+    private var entry: GlossaryTerm? { AppContent.glossary.first { $0.term.lowercased() == term.lowercased() } }
+    var body: some View {
+        Button { show.toggle() } label: {
+            Text(term)
+                .font(.system(.subheadline, design: .serif).italic())
+                .foregroundStyle(Color.slate)
+                .padding(.horizontal, 10).padding(.vertical, 4)
+                .background(Color.slate.opacity(0.08), in: Capsule())
+                .overlay(Capsule().stroke(Color.slate.opacity(0.25)))
+        }
+        .buttonStyle(.plain)
+        .popover(isPresented: $show) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(entry?.term ?? term).font(.serifTitle(20))
+                Text(entry?.definition ?? "—").font(.callout).foregroundStyle(Color.inkSoft)
+            }
+            .padding(20).frame(maxWidth: 320)
+            .presentationCompactAdaptation(.popover)
+        }
+    }
+}
+
+// MARK: - "Reading this fairly" balance sheet (reachable everywhere)
+struct BalanceSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("This app walks through a **Christian apologetics** argument (popularized by David Wood / Acts 17 Apologetics) and the **Muslim scholarly responses** to it — on equal footing. It is a reference explainer, not a verdict.")
+                    Divider()
+                    Label("Every argument is paired with its strongest response, and every response with its counter-reply. Both traditions are steelmanned in their own voice.", systemImage: "scalemass")
+                    Label("Claims are owned by who makes them — “Apologists argue…”, “Responders answer…”, “Historians note…” — never asserted by the app.", systemImage: "quote.opening")
+                    Label("Quran quotations are paraphrase-level (translations differ: Sahih International, Yusuf Ali, Pickthall) and use standard Hafs / Cairo (1924) verse numbering.", systemImage: "text.book.closed")
+                    Label("Nothing here decides the question for you. The judgment is yours.", systemImage: "person.fill.questionmark")
+                }
+                .font(.callout)
+                .foregroundStyle(Color.ink)
+                .padding(20)
+            }
+            .background(Color.parchment)
+            .navigationTitle("Reading this fairly")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }
+    }
+}
+
+// MARK: - Explorer top bar
+// A custom top bar (NOT the system nav bar): home button top-left, title centered,
+// balance button top-right. The system nav bar is hidden on the screen this is
+// applied to, so drill-in detail screens still get their own back arrow.
+struct ExplorerBar: ViewModifier {
+    let title: String
+    let onHome: () -> Void
+    @State private var showBalance = false
+    func body(content: Content) -> some View {
+        content
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                HStack {
+                    barButton("house.fill", "Home", action: onHome)
+                    Spacer()
+                    Text(title).font(.serifTitle(17)).foregroundStyle(Color.ink)
+                    Spacer()
+                    barButton("scalemass", "Reading this fairly") { showBalance = true }
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(Color.parchment)
+                .overlay(alignment: .bottom) { Divider().opacity(0.5) }
+            }
+            .sheet(isPresented: $showBalance) { BalanceSheet() }
+    }
+    private func barButton(_ icon: String, _ label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(Color.slate)
+                .frame(width: 38, height: 38)
+                .background(Color.parchmentCard, in: Circle())
+                .overlay(Circle().stroke(Color.ink.opacity(0.08)))
+        }
+        .accessibilityLabel(label)
+    }
+}
+extension View {
+    func explorerBar(_ title: String, onHome: @escaping () -> Void) -> some View {
+        modifier(ExplorerBar(title: title, onHome: onHome))
+    }
+}
