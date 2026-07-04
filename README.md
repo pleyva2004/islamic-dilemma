@@ -19,6 +19,8 @@ The argument is a **constructive dilemma**:
 
 The app gives the **Muslim responses** equal weight: *tahrif al-nass* vs *tahrif al-ma'ani* (text vs. meaning corruption), "confirm" = message not manuscript, Q5:47 as *ad hominem*, Injil ≠ the four Gospels, *muhaymin* + *naskh* supersession, and the Quran itself alleging tampering (Q2:79, Q4:46, Q5:13) — plus a neutral academic note on the manuscript record.
 
+> **Full content reference:** [`docs/dilemma.md`](docs/dilemma.md) is the source-of-truth document for the complete theory, all responses, and every verse and term the app uses (mirrors `Sources/Content.swift`).
+
 ## App structure
 
 - **Home** — a clean landing page (one-sentence summary, "find your way around") with a *Begin at the Fork* button.
