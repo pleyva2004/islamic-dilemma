@@ -297,6 +297,8 @@ struct VerseDetail: View {
                     HStack(spacing: 8) { Text("Key term:").font(.caption).foregroundStyle(Color.inkSoft); TermChip(term: term) }
                 }
 
+                ReadLink(ref: verse.ref)
+
                 Card(accent: .argument) {
                     Label("Apologists cite this for…", systemImage: "arrow.up.forward").font(.subheadline.weight(.semibold)).foregroundStyle(Color.argument)
                     Text(verse.apologist ?? defaultApologist(verse.cluster)).font(.subheadline)
@@ -312,8 +314,16 @@ struct VerseDetail: View {
                         ForEach(verse.crossRefs, id: \.self) { ref in
                             if let v = AppContent.verses.first(where: { $0.ref == ref }) {
                                 NavigationLink { VerseDetail(verse: v) } label: { VerseBadge(ref: ref) }
-                            } else { VerseBadge(ref: ref) }
+                            } else if let url = AppContent.readerURL(for: ref) {
+                                SafariLink(primary: url, fallback: AppContent.readerFallbackURL(for: ref)) { VerseBadge(ref: ref) }
+                            } else {
+                                VerseBadge(ref: ref)
+                            }
                         }
+                    }
+                    if isBible(verse.crossRefs.first!) {
+                        Text("Tap to read the passage in full (NRSVUE + original Greek) on BibleGateway.")
+                            .font(.caption2).foregroundStyle(Color.inkSoft)
                     }
                 }
             }
@@ -525,6 +535,9 @@ struct AboutView: View {
             }
             Section("On the sources") {
                 Text("Quran refs use Hafs / Cairo (1924) numbering; English is paraphrase-level (check Sahih International, Yusuf Ali, Pickthall). Bible manuscript facts from Metzger/Ehrman, Tov, Parker; Quranic-milieu scholarship from Reynolds, Griffith, Neuwirth, Sinai.").font(.subheadline)
+            }
+            Section("Read the verses yourself") {
+                Text("Tap any reference to open it in full. The Quran opens on Quran.com (standard Uthmani/Hafs Arabic with your choice of translation); the Bible opens on BibleGateway (ecumenical NRSVUE plus 200+ translations and the original Greek/Hebrew). Both are mainstream, widely used, and impose no sect-specific rendering — you read the text and pick the translation.").font(.subheadline)
             }
             Section("Known limits") {
                 Text("Manuscript dates are paleographic / radiocarbon estimates; P52's tight ~125 CE date is contested (Nongbri). ‘7th-c. Bible = today's Bible’ means no wholesale rewrite, not identity in every detail.").font(.subheadline)

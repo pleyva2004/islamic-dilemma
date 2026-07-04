@@ -1,4 +1,5 @@
 import SwiftUI
+import SafariServices
 
 // MARK: - Palette
 // Neutral academic warmth: parchment ground, ink text, one calm slate accent.
@@ -92,6 +93,111 @@ struct TermChip: View {
             }
             .padding(20).frame(maxWidth: 320)
             .presentationCompactAdaptation(.popover)
+        }
+    }
+}
+
+// MARK: - In-app browser (SFSafariViewController) with a Done button + live failover
+// SFSafariViewController must be PRESENTED MODALLY, not embedded in a SwiftUI .sheet —
+// embedded it renders blank and its Done button can't dismiss. So we present it from the
+// top view controller via UIKit; Done then works natively. If the primary source fails
+// its initial load, we dismiss and re-present on the fallback source.
+@MainActor
+enum InAppBrowser {
+    // ponytail: single retained delegate — SFVC.delegate is weak, and only one browser
+    // is ever open at a time here. Make it a set if that ever changes.
+    private static var keepAlive: Coordinator?
+
+    static func open(_ primary: URL, fallback: URL? = nil) {
+        guard let top = UIApplication.topPresentedViewController() else { return }
+        let coordinator = Coordinator(fallback: fallback)
+        keepAlive = coordinator
+        let vc = SFSafariViewController(url: primary)
+        vc.delegate = coordinator
+        top.present(vc, animated: true)
+    }
+
+    @MainActor
+    final class Coordinator: NSObject, SFSafariViewControllerDelegate {
+        let fallback: URL?
+        private var swapped = false
+        init(fallback: URL?) { self.fallback = fallback }
+
+        func safariViewController(_ c: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+            // ponytail: only a hard load failure flips to the fallback; an HTTP error page
+            // still "loads successfully". One swap, no tertiary source.
+            guard !didLoadSuccessfully, !swapped, let fallback else { return }
+            swapped = true
+            let presenter = c.presentingViewController
+            c.dismiss(animated: false) { [weak self] in
+                guard let self else { return }
+                let vc = SFSafariViewController(url: fallback)
+                vc.delegate = self
+                presenter?.present(vc, animated: false)
+            }
+        }
+
+        func safariViewControllerDidFinish(_ c: SFSafariViewController) {
+            InAppBrowser.keepAlive = nil
+        }
+    }
+}
+
+extension UIApplication {
+    static func topPresentedViewController() -> UIViewController? {
+        let root = shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .rootViewController
+        var top = root
+        while let presented = top?.presentedViewController { top = presented }
+        return top
+    }
+}
+
+// MARK: - "Read it yourself" tap target — opens the in-app browser
+struct SafariLink<Label: View>: View {
+    let primary: URL
+    var fallback: URL?
+    let label: Label
+    init(primary: URL, fallback: URL? = nil, @ViewBuilder label: () -> Label) {
+        self.primary = primary
+        self.fallback = fallback
+        self.label = label()
+    }
+    var body: some View {
+        Button { InAppBrowser.open(primary, fallback: fallback) } label: { label }
+            .buttonStyle(.plain)
+    }
+}
+
+// MARK: - "Read it yourself" external link
+// Opens the verse in a reputable, sect-neutral online reader (Quran.com / BibleGateway)
+// so the user reads the full original text + a translation, not just the app's paraphrase.
+struct ReadLink: View {
+    let ref: String
+    private var isQuran: Bool { ref.hasPrefix("Q") }
+    private var site: String { isQuran ? "Quran.com" : "BibleGateway" }
+    private var sub: String { isQuran ? "Arabic + your choice of translation" : "original languages + 200+ translations" }
+    var body: some View {
+        if let url = AppContent.readerURL(for: ref) {
+            SafariLink(primary: url, fallback: AppContent.readerFallbackURL(for: ref)) {
+                HStack(spacing: 10) {
+                    Image(systemName: "book").font(.subheadline)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Read \(ref) on \(site)").font(.subheadline.weight(.semibold))
+                        Text(sub).font(.caption2).foregroundStyle(Color.inkSoft)
+                    }
+                    Spacer()
+                    Image(systemName: "arrow.up.right").font(.caption)
+                }
+                .foregroundStyle(Color.slate)
+                .padding(12)
+                .frame(maxWidth: .infinity)
+                .background(Color.slate.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.slate.opacity(0.2)))
+            }
         }
     }
 }

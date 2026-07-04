@@ -228,3 +228,62 @@ enum AppContent {
                  correct: 1, explanation: "It's a serious argument with serious answers, not a knockout for either side. The judgment is yours."),
     ]
 }
+
+// MARK: - "Read it yourself" external links
+// Deep links to reputable, sect-neutral online readers so a tap opens the verse
+// in full — original language + a translation — for the reader to check directly.
+// Each source has an independent FALLBACK used as a live failover (see SafariLink):
+//   Quran → Quran.com (primary) · Al-Quran Cloud (fallback); Uthmani/Hafs, user-picks translation.
+//   Bible → BibleGateway (primary, plain book name, ecumenical) · BibleHub (fallback, Greek/Hebrew).
+extension AppContent {
+    /// Primary reader link. Quran refs look like "Q5:47"; Bible refs like "Matthew 27".
+    static func readerURL(for ref: String) -> URL? {
+        ref.hasPrefix("Q") ? quranURL(ref) : bibleURL(ref)
+    }
+    /// Independent second source, opened as a failover when the primary won't load.
+    static func readerFallbackURL(for ref: String) -> URL? {
+        ref.hasPrefix("Q") ? quranFallbackURL(ref) : bibleFallbackURL(ref)
+    }
+
+    // Quran.com — stable path route /{surah}/{ayah}.
+    static func quranURL(_ ref: String) -> URL? {
+        guard let (s, a) = quranParts(ref) else { return nil }
+        return URL(string: "https://quran.com/\(s)/\(a)")
+    }
+    // Al-Quran Cloud (Islamic Network / AlAdhan nonprofit) — Tanzil-sourced, neutral.
+    static func quranFallbackURL(_ ref: String) -> URL? {
+        guard let (s, a) = quranParts(ref) else { return nil }
+        return URL(string: "https://alquran.cloud/ayah/\(s):\(a)")
+    }
+    // BibleGateway — ecumenical; passage search takes the plain book name (no code map).
+    static func bibleURL(_ ref: String) -> URL? {
+        guard bibleParts(ref) != nil,
+              var c = URLComponents(string: "https://www.biblegateway.com/passage/") else { return nil }
+        c.queryItems = [
+            URLQueryItem(name: "search", value: ref),   // "Matthew 27"
+            URLQueryItem(name: "version", value: "NRSVUE"),
+        ]
+        return c.url
+    }
+    // BibleHub — Greek/Hebrew interlinear (the analog to the Quran side's Arabic).
+    static func bibleFallbackURL(_ ref: String) -> URL? {
+        guard let (book, chapter) = bibleParts(ref) else { return nil }
+        let slug = book.lowercased().replacingOccurrences(of: " ", with: "_")   // "1 Corinthians" -> "1_corinthians"
+        return URL(string: "https://biblehub.com/\(slug)/\(chapter).htm")
+    }
+
+    private static func quranParts(_ ref: String) -> (surah: Int, ayah: Int)? {
+        let body = ref.hasPrefix("Q") ? String(ref.dropFirst()) : ref   // "5:47"
+        let parts = body.split(separator: ":")
+        guard parts.count == 2,
+              let s = Int(parts[0]), (1...114).contains(s),
+              let a = Int(parts[1]), a >= 1 else { return nil }
+        return (s, a)
+    }
+    private static func bibleParts(_ ref: String) -> (book: String, chapter: Int)? {
+        guard let sp = ref.lastIndex(of: " ") else { return nil }       // "Matthew 27" -> "Matthew", 27
+        let book = String(ref[..<sp]).trimmingCharacters(in: .whitespaces)
+        guard !book.isEmpty, let chapter = Int(ref[ref.index(after: sp)...]) else { return nil }
+        return (book, chapter)
+    }
+}

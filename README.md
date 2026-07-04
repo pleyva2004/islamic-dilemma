@@ -25,7 +25,7 @@ The app gives the **Muslim responses** equal weight: *tahrif al-nass* vs *tahrif
 - **Guided walkthrough** — 4 paged steps: Welcome → Premises → The Fork → Responses.
 - **Explorer** (tab bar), each screen with a top-left home button:
   - **Fork** — the argument as a tappable diagram, with a "show where this is contested" toggle.
-  - **Verses** — searchable/filterable browser of every reference; each detail shows *Apologists cite* / *Responders read* side by side.
+  - **Verses** — searchable/filterable browser of every reference; each detail shows *Apologists cite* / *Responders read* side by side, and a **tap opens the full verse** (original text + translation) in an in-app reader.
   - **Responses** — 7 topics, each a swipeable Argument → Response → Counter-reply deck.
   - **More** — glossary, a light quiz, About & Sources.
 
@@ -52,6 +52,17 @@ The app gives the **Muslim responses** equal weight: *tahrif al-nass* vs *tahrif
 ```
 
 `run.sh` regenerates the project from `project.yml`, builds, boots the simulator, installs, launches, and writes `Dilemma-screenshot.png`.
+
+## Read the sources yourself
+
+Every reference is tappable and opens in an in-app browser (`SFSafariViewController`, with a Done button), so you read the actual text rather than the app's paraphrase. Sources were chosen to be reputable **and sect-neutral**, each with an independent failover:
+
+| | Primary | Fallback |
+|--|---------|----------|
+| **Quran** (`Q5:47`) | [Quran.com](https://quran.com/5/47) — Uthmani/Hafs Arabic, user-selectable translation | [Al-Quran Cloud](https://alquran.cloud/ayah/5:47) — Tanzil-sourced |
+| **Bible** (`Matthew 27`) | [BibleGateway](https://www.biblegateway.com/passage/?search=Matthew%2027&version=NRSVUE) — ecumenical NRSVUE, 200+ versions | [BibleHub](https://biblehub.com/matthew/27.htm) — Greek/Hebrew interlinear |
+
+If the primary fails its initial load, the reader swaps to the fallback. The Saudi-state readers (King Fahd Complex, QuranEnc) and fragment-routed SPAs (Tanzil, STEP Bible) were deliberately avoided — the former for a Salafi editorial lean, the latter for fragile deep links. URL formats are the canonical, long-stable routes; they should be tap-tested on a real device (see below).
 
 ## Accuracy & balance
 
