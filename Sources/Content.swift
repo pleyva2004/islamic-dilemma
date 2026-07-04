@@ -77,6 +77,14 @@ struct QuizItem: Identifiable {
     let explanation: String
 }
 
+struct Manuscript: Identifiable {
+    var id: String { name }
+    let name: String
+    let date: String
+    let source: String   // the digital archive that hosts it
+    let url: String
+}
+
 // MARK: - Content
 // Verse refs verified against the Hafs/Cairo (1924) numbering; manuscript dates
 // reflect the reviewed corrections (Vaticanus ~325–350 CE, 1QIsaa as a range,
@@ -226,6 +234,27 @@ enum AppContent {
         QuizItem(question: "Does this app conclude the argument definitively wins?",
                  options: ["Yes", "No, both sides are left standing for you to weigh"],
                  correct: 1, explanation: "It's a serious argument with serious answers, not a knockout for either side. The judgment is yours."),
+    ]
+
+    // Pre-Islamic manuscript evidence, each linked to its most authoritative online archive.
+    // These bear on the fork's "corrupt then vs reliable then" question, so they live at the
+    // Inference node. Dates use en-dash ranges; en-dashes are intentional there.
+    static let manuscripts: [Manuscript] = [
+        Manuscript(name: "Great Isaiah Scroll (1QIsaᵃ)", date: "~150–100 BCE",
+                   source: "Digital Dead Sea Scrolls, Israel Museum",
+                   url: "https://dss.collections.imj.org.il/isaiah"),
+        Manuscript(name: "Codex Vaticanus", date: "~325–350 CE",
+                   source: "Vatican Library (DigiVatLib)",
+                   url: "https://digi.vatlib.it/view/MSS_Vat.gr.1209"),
+        Manuscript(name: "Codex Sinaiticus", date: "~330–360 CE",
+                   source: "Codex Sinaiticus Project",
+                   url: "https://codexsinaiticus.org/en/"),
+        Manuscript(name: "Syriac Peshitta", date: "pre-Islamic",
+                   source: "Dukhrana Peshitta reader",
+                   url: "https://dukhrana.com/peshitta/"),
+        Manuscript(name: "Greek NT manuscripts (~5,800)", date: "collectively",
+                   source: "CSNTM digitized library",
+                   url: "https://www.csntm.org"),
     ]
 }
 

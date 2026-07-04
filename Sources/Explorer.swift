@@ -127,7 +127,7 @@ struct ForkTab: View {
                     node("Premise 3 · Preservation", "None can change God's words.", ["Q6:115", "Q18:27"], .argument,
                          contested: showContested ? "‘God's words’ may mean His decree or the Quran, not the Bible." : nil)
                     connector
-                    node("Inference", "Therefore the scriptures of ~610–632 CE were EITHER already corrupt OR still reliable.", [], .slate, contested: nil)
+                    node("Inference", "Therefore the scriptures of ~610–632 CE were EITHER already corrupt OR still reliable.", [], .slate, contested: nil, manuscripts: AppContent.manuscripts)
                     connector
 
                     HStack(alignment: .top, spacing: 12) {
@@ -154,9 +154,9 @@ struct ForkTab: View {
         Rectangle().fill(Color.slate.opacity(0.35)).frame(width: 2, height: 22)
     }
 
-    private func node(_ title: String, _ body: String, _ verses: [String], _ accent: Color, contested: String?) -> some View {
+    private func node(_ title: String, _ body: String, _ verses: [String], _ accent: Color, contested: String?, manuscripts: [Manuscript] = []) -> some View {
         NavigationLink {
-            NodeDetail(title: title, detail: body, verses: verses, accent: accent)
+            NodeDetail(title: title, detail: body, verses: verses, accent: accent, manuscripts: manuscripts)
         } label: {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.serifTitle(16)).foregroundStyle(accent)
@@ -167,6 +167,11 @@ struct ForkTab: View {
                 if let contested {
                     Label(contested, systemImage: "exclamationmark.bubble")
                         .font(.caption2).foregroundStyle(Color.hinge)
+                        .padding(.top, 2)
+                }
+                if !manuscripts.isEmpty {
+                    Label("\(manuscripts.count) pre-Islamic manuscripts, tap to read", systemImage: "doc.text.magnifyingglass")
+                        .font(.caption2).foregroundStyle(Color.slate)
                         .padding(.top, 2)
                 }
             }
@@ -181,6 +186,7 @@ struct ForkTab: View {
 
 private struct NodeDetail: View {
     let title: String; let detail: String; let verses: [String]; let accent: Color
+    var manuscripts: [Manuscript] = []
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -194,6 +200,27 @@ private struct NodeDetail: View {
                                 HStack { VerseBadge(ref: ref); Text(v.paraphrase).font(.caption).foregroundStyle(Color.ink); Spacer(); Image(systemName: "chevron.right").font(.caption2).foregroundStyle(Color.inkSoft) }
                             }.buttonStyle(.plain)
                         } else { VerseBadge(ref: ref) }
+                    }
+                }
+                if !manuscripts.isEmpty {
+                    Divider().padding(.vertical, 2)
+                    Text("The manuscript evidence").font(.serifTitle(18))
+                    Text("Which way the fork falls turns on the textual record. These copies all predate Islam. Tap any to read it at its authoritative digital archive.")
+                        .font(.subheadline).foregroundStyle(Color.inkSoft)
+                    VStack(spacing: 8) {
+                        ForEach(manuscripts) { ManuscriptLink(m: $0) }
+                    }
+                    Card(accent: .argument) {
+                        Label("How apologists use it", systemImage: "arrow.up.forward")
+                            .font(.subheadline.weight(.semibold)).foregroundStyle(Color.argument)
+                        Text("These predate Muhammad by centuries and show no wholesale rewrite, so the ‘corrupt then’ escape is closed and the 7th-century text is essentially today's Bible. That forces Horn B.")
+                            .font(.subheadline)
+                    }
+                    Card(accent: .response) {
+                        Label("How responders read it", systemImage: "arrow.uturn.left")
+                            .font(.subheadline.weight(.semibold)).foregroundStyle(Color.response)
+                        Text("Manuscripts rule out only a post-7th-century rewrite. They cannot exclude pre-Islamic distortion, or an original Injil lost before Muhammad, so the fork is not forced.")
+                            .font(.subheadline)
                     }
                 }
                 Text("See the Verses and Responses tabs for the full treatment of this joint.")

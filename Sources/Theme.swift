@@ -204,6 +204,31 @@ struct SafariLink<Label: View>: View {
     }
 }
 
+// MARK: - Manuscript reading link
+// A pre-Islamic manuscript row that opens its authoritative digital archive in-app.
+struct ManuscriptLink: View {
+    let m: Manuscript
+    var body: some View {
+        if let url = URL(string: m.url) {
+            SafariLink(primary: url) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(m.name).font(.subheadline.weight(.semibold)).foregroundStyle(Color.slate)
+                        Text(m.source).font(.caption2).foregroundStyle(Color.inkSoft)
+                    }
+                    Spacer(minLength: 8)
+                    Text(m.date).font(.system(.caption2, design: .monospaced)).foregroundStyle(Color.slate)
+                    Image(systemName: "arrow.up.right").font(.caption2).foregroundStyle(Color.inkSoft)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 8).padding(.horizontal, 10)
+                .background(Color.parchmentCard, in: RoundedRectangle(cornerRadius: 10))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.slate.opacity(0.15)))
+            }
+        }
+    }
+}
+
 // MARK: - "Read it yourself" external link
 // Opens the verse in a reputable, sect-neutral online reader (Quran.com / BibleGateway)
 // so the user reads the full original text + a translation, not just the app's paraphrase.

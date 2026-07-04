@@ -56,15 +56,20 @@ Bible **of Muhammad's day**: was it already corrupt then, or still reliable then
   record predates Muhammad by centuries). But today's Bible teaches what Islam denies: that Jesus was
   crucified (contrast Q4:157), is divine, and is the Son of God.
 
-**Pre-Islamic manuscript evidence** cited for Horn B:
+**Pre-Islamic manuscript evidence** (the textual record the fork turns on):
 
-| Manuscript | Date |
-|------------|------|
-| Great Isaiah Scroll (1QIsaᵃ) | ~150–100 BCE |
-| Codex Vaticanus | ~325–350 CE |
-| Codex Sinaiticus | ~330–360 CE |
-| Syriac Peshitta | pre-Islamic, nearest Arabia |
-| ~5,800 Greek NT manuscripts | (collectively) |
+| Manuscript | Date | Read online |
+|------------|------|-------------|
+| Great Isaiah Scroll (1QIsaᵃ) | ~150–100 BCE | [Digital Dead Sea Scrolls, Israel Museum](https://dss.collections.imj.org.il/isaiah) |
+| Codex Vaticanus | ~325–350 CE | [Vatican Library (DigiVatLib)](https://digi.vatlib.it/view/MSS_Vat.gr.1209) |
+| Codex Sinaiticus | ~330–360 CE | [Codex Sinaiticus Project](https://codexsinaiticus.org/en/) |
+| Syriac Peshitta | pre-Islamic | [Dukhrana Peshitta reader](https://dukhrana.com/peshitta/) |
+| ~5,800 Greek NT manuscripts | collectively | [CSNTM digitized library](https://www.csntm.org) |
+
+In the app these are tappable in the **Inference** node of the Fork, not inside Horn B: they are the
+shared, contested evidence the "corrupt then vs reliable then" fork turns on. Apologists use them to
+close the "corrupt then" escape (forcing Horn B); responders answer that they rule out only a
+*post*-7th-century rewrite, not pre-Islamic loss.
 
 ### The close
 
@@ -257,6 +262,20 @@ lean, and fragment-routed SPAs (Tanzil, STEP Bible) for fragile deep links.
 - "7th-c. Bible = today's Bible" means **no wholesale rewrite**, not identity in every detail.
   Vocalization, canon boundaries, and known interpolations (e.g. Mark 16:9–20, John 7:53–8:11, the
   Comma Johanneum) vary.
+
+---
+
+## 8. Voices from the debates (pipeline-enriched)
+
+> **Auto-enriched.** The entries below are extracted from parsed debate and lecture transcripts by
+> the pipeline in [`../scripts/`](../scripts/); see [`log.md`](log.md) for the provenance of each
+> (source video, date, what was added). Everything here is **attributed to a named speaker and
+> source — inclusion is not endorsement.** The balance rule still holds: apologist and responder
+> voices are added on equal footing, and nothing here declares a winner. This section is the
+> **staging area**; vetted material is promoted up into §2–§5 (and then `Sources/Content.swift`)
+> during human review.
+
+_No sources parsed yet — run the pipeline to populate this section._
 
 ---
 

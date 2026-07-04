@@ -171,10 +171,7 @@ private struct ForkPage: View {
                         .font(.subheadline)
                     Divider()
                     Text("Pre-Islamic manuscript evidence").font(.caption.weight(.semibold)).foregroundStyle(Color.inkSoft)
-                    manuscript("Great Isaiah Scroll (1QIsaa)", "~150–100 BCE")
-                    manuscript("Codex Sinaiticus", "~330–360 CE")
-                    manuscript("Codex Vaticanus", "~325–350 CE")
-                    manuscript("Syriac Peshitta", "pre-Islamic, nearest Arabia")
+                    ForEach(AppContent.manuscripts) { ManuscriptLink(m: $0) }
                 }
 
                 Card {
@@ -193,13 +190,6 @@ private struct ForkPage: View {
                 }
             }
             .padding(20)
-        }
-    }
-    private func manuscript(_ name: String, _ date: String) -> some View {
-        HStack {
-            Text(name).font(.caption)
-            Spacer()
-            Text(date).font(.system(.caption, design: .monospaced)).foregroundStyle(Color.slate)
         }
     }
 }
